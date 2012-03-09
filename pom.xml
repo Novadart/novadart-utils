@@ -7,8 +7,8 @@
   <name>novadart-utils</name>
   
   <scm>
-  	<connection>scm:git:ssh://gitolite@labs.novadart.com/novadart/utils.git</connection>
-  	<developerConnection>scm:git:ssh://gitolite@labs.novadart.com/novadart/utils.git</developerConnection>
+  	<connection>scm:git:ssh://gitolite@labs.novadart.com/novadart/novadart-utils.git</connection>
+  	<developerConnection>scm:git:ssh://gitolite@labs.novadart.com/novadart/novadart-utils.git</developerConnection>
   </scm>
   
   <build>
