@@ -8,8 +8,8 @@
 	<name>novadart-utils</name>
 
 	<scm>
-		<connection>scm:git:ssh://gitolite@labs.novadart.com/novadart/novadart-utils.git</connection>
-		<developerConnection>scm:git:ssh://gitolite@labs.novadart.com/novadart/novadart-utils.git</developerConnection>
+		<connection>scm:git:ssh://gitolite@scm.dev.novadart.com/novadart/novadart-utils.git</connection>
+		<developerConnection>scm:git:ssh://gitolite@scm.dev.novadart.com/novadart/novadart-utils.git</developerConnection>
 	</scm>
 
 	<build>
@@ -73,13 +73,13 @@
 	<distributionManagement>
 
 		<repository>
-			<id>novadart-labs</id>
-			<url>http://labs.novadart.com:8888/archiva/repository/internal/</url>
+			<id>novadart-build</id>
+			<url>http://build.dev.novadart.com/archiva/repository/internal/</url>
 		</repository>
 
 		<snapshotRepository>
-			<id>novadart-labs</id>
-			<url>http://labs.novadart.com:8888/archiva/repository/snapshots/</url>
+			<id>novadart-build</id>
+			<url>http://build.dev.novadart.com/archiva/repository/snapshots/</url>
 		</snapshotRepository>
 
 
