@@ -1,10 +1,14 @@
 package com.novadart.utils.image;
 
 import java.awt.Dimension;
-import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.swing.ImageIcon;
+import java.util.Iterator;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.im4java.core.ConvertCmd;
@@ -13,13 +17,26 @@ import org.im4java.core.IMOperation;
 
 public class ImageUtils {
 
-	public static Dimension getImageDimension(File imageFile){
-		Image image = new ImageIcon(imageFile.getPath()).getImage();
-		int imgHeight = image.getHeight(null), imgWidth = image.getWidth(null);
-		return new Dimension(imgWidth, imgHeight);
+	public static Dimension getImageDimension(File imageFile) throws FileNotFoundException, IOException, UnsupportedImageFormatException{
+		ImageInputStream in = ImageIO.createImageInputStream(new FileInputStream(imageFile));
+		try {
+			final Iterator<ImageReader> readers = ImageIO.getImageReaders(in);
+			if (readers.hasNext()) {
+				ImageReader reader = (ImageReader) readers.next();
+				try {
+					reader.setInput(in);
+					return new Dimension(reader.getWidth(0), reader.getHeight(0));
+				} finally {
+					reader.dispose();
+				}
+			}
+		} finally {
+			if (in != null) in.close();
+		}
+		throw new UnsupportedImageFormatException();
 	}
 	
-	public static Dimension resizeConvertImage(File imageFile, int width, int height, File resizedImageFile) throws IOException, InterruptedException, IM4JavaException{
+	public static Dimension resizeConvertImage(File imageFile, int width, int height, File resizedImageFile) throws IOException, InterruptedException, IM4JavaException, UnsupportedImageFormatException{
 		Dimension dimension = getImageDimension(imageFile);
 		boolean resize = dimension.width > width || dimension.height > height; 
 		if(!resize && FilenameUtils.getExtension(imageFile.getName()).equals(FilenameUtils.getExtension(resizedImageFile.getName()))){
