@@ -36,7 +36,7 @@ public class ImageUtils {
 		throw new UnsupportedImageFormatException();
 	}
 	
-	public static Dimension resizeConvertImage(File imageFile, int width, int height, File resizedImageFile) throws IOException, InterruptedException, IM4JavaException, UnsupportedImageFormatException{
+	public static Dimension resizeConvertImage(File imageFile, int width, int height, File resizedImageFile, double quality) throws IOException, InterruptedException, IM4JavaException, UnsupportedImageFormatException{
 		Dimension dimension = getImageDimension(imageFile);
 		boolean resize = dimension.width > width || dimension.height > height; 
 		if(!resize && FilenameUtils.getExtension(imageFile.getName()).equals(FilenameUtils.getExtension(resizedImageFile.getName()))){
@@ -54,6 +54,8 @@ public class ImageUtils {
 			newHeight = (int)Math.round(dimension.height / ratio);
 			op.resize(newWidth, newHeight);
 		}
+		op.strip();
+		op.quality(quality);
 		op.addImage(resizedImageFile.getPath());
 		new ConvertCmd().run(op);
 		return new Dimension(newWidth, newHeight);
