@@ -56,6 +56,7 @@ public class ImageUtils {
 		}
 		op.strip();
 		op.quality(quality);
+		op.alpha("Background");
 		op.addImage(resizedImageFile.getPath());
 		new ConvertCmd().run(op);
 		return new Dimension(newWidth, newHeight);
